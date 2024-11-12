@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import Todo from "./Todo";
 import NoTasks from "../NoTasks/NoTasks";
-import { deleteTask, toggleTask } from "../../redux/actionCreators";
+import { deleteTask, toggleTask, editTask } from "../../redux/actionCreators";
 
 function TodoList() {
   const tasks = useSelector((state) => state.tasks);
@@ -15,6 +15,10 @@ function TodoList() {
     dispatch(toggleTask(id));
   };
 
+  const updateTaskHandler = (id, editedTask) => {
+    dispatch(editTask(id, editedTask));
+  };
+
   return (
     <ul id="taskList">
       {tasks.length === 0 ? (
@@ -26,6 +30,7 @@ function TodoList() {
             task={task}
             deleteTask={handleDeleteTask}
             toggleTask={toggleTaskHandler}
+            updateTask={updateTaskHandler}
           />
         ))
       )}

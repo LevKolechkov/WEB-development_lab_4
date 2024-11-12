@@ -1,11 +1,13 @@
 import { useState } from "react";
 import ConfirmDelete from "../Confirm/ConfirmDelete";
+import ConfirmEdit from "../Confirm/ConfirmEdit";
+import Share from "../Share/Share";
 import shareIcon from "../../assets/images/menu/share.svg";
 import infoIcon from "../../assets/images/menu/info.svg";
 import editIcon from "../../assets/images/menu/edit.svg";
 import "./TodoList.scss";
 
-function Todo({ task, deleteTask, toggleTask }) {
+function Todo({ task, deleteTask, toggleTask, updateTask }) {
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const [showConfirmEdit, setShowConfirmEdit] = useState(false);
   const [showShareMenu, setShowShare] = useState(false);
@@ -17,6 +19,11 @@ function Todo({ task, deleteTask, toggleTask }) {
 
   const handleDeleteClick = () => {
     setShowConfirmDelete(true);
+  };
+
+  const handleSaveEdit = (editedTask) => {
+    updateTask(task.id, editedTask);
+    setShowConfirmEdit(false);
   };
 
   const handleEditClick = () => {
@@ -63,6 +70,7 @@ function Todo({ task, deleteTask, toggleTask }) {
               alt="share"
               onClick={(event) => {
                 event.stopPropagation();
+                handleShareClick();
               }}
             />
           </button>
@@ -84,6 +92,13 @@ function Todo({ task, deleteTask, toggleTask }) {
         onConfirm={handleConfirmDelete}
         onCancel={handleCancelDelete}
       />
+      <ConfirmEdit
+        show={showConfirmEdit}
+        task={task}
+        onSave={handleSaveEdit}
+        onCancel={handleCancelEdit}
+      />
+      <Share show={showShareMenu} onCancel={handleShareCancel} />
     </>
   );
 }

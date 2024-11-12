@@ -17,7 +17,7 @@ const taskReducer = (state = initialState, action) => {
       return state;
 
     case a.EDIT_TASK:
-      return state.map((task) =>
+      state = state.map((task) =>
         task.id === action.payload.id
           ? {
               ...task,
@@ -26,6 +26,8 @@ const taskReducer = (state = initialState, action) => {
             }
           : { ...task }
       );
+      localStorage.setItem("tasks", JSON.stringify(state));
+      return state;
 
     case a.TOGGLE_TASK:
       return state.map((task) =>
