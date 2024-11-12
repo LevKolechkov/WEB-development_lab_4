@@ -18,6 +18,7 @@ function TodoForm() {
         title: title,
         about: about,
         id: uuidv4(),
+        isMenuOpened: false,
       };
 
       dispatch(addTask(task));

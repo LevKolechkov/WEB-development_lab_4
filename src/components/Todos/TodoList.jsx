@@ -1,9 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import store from "../../redux/store";
 import Todo from "./Todo";
 import NoTasks from "../NoTasks/NoTasks";
-import { deleteTask, loadTasks, saveTasks } from "../../redux/actionCreators";
-import { useEffect } from "react";
+import { deleteTask, toggleTask } from "../../redux/actionCreators";
 
 function TodoList() {
   const tasks = useSelector((state) => state.tasks);
@@ -13,13 +11,22 @@ function TodoList() {
     dispatch(deleteTask(id));
   };
 
+  const toggleTaskHandler = (id) => {
+    dispatch(toggleTask(id));
+  };
+
   return (
     <ul id="taskList">
       {tasks.length === 0 ? (
         <NoTasks />
       ) : (
         tasks.map((task) => (
-          <Todo key={task.id} task={task} deleteTask={handleDeleteTask} />
+          <Todo
+            key={task.id}
+            task={task}
+            deleteTask={handleDeleteTask}
+            toggleTask={toggleTaskHandler}
+          />
         ))
       )}
     </ul>
