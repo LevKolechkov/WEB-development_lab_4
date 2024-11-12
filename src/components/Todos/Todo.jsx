@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import ConfirmDelete from "../Confirm/ConfirmDelete";
 import ConfirmEdit from "../Confirm/ConfirmEdit";
 import Share from "../Share/Share";
@@ -8,6 +10,12 @@ import editIcon from "../../assets/images/menu/edit.svg";
 import "./TodoList.scss";
 
 function Todo({ task, deleteTask, toggleTask, updateTask }) {
+  const taskId = task.id;
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: taskId });
+
+  const style = { transition, transform: CSS.Transform.toString(transform) };
+
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const [showConfirmEdit, setShowConfirmEdit] = useState(false);
   const [showShareMenu, setShowShare] = useState(false);
@@ -48,9 +56,15 @@ function Todo({ task, deleteTask, toggleTask, updateTask }) {
 
   return (
     <>
-      <li className="task">
+      <li style={style} className="task">
         <div className="container" onClick={() => toggleTask(task.id)}>
           <div className="container__text">
+            <div
+              className="dragable"
+              {...attributes}
+              {...listeners}
+              ref={setNodeRef}
+            ></div>
             <h1>{task.title}</h1>
             <h2>{task.about}</h2>
           </div>

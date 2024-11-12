@@ -1,3 +1,4 @@
+import { arrayMove } from "@dnd-kit/sortable";
 import * as a from "./actionTypes";
 
 const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -40,6 +41,18 @@ const taskReducer = (state = initialState, action) => {
       const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
       storedTasks.forEach((task) => (task.isMenuOpened = false));
       return storedTasks;
+
+    case a.MOVE_TASK:
+      const { active, over } = action.payload;
+
+      if (active.id === over.id) return;
+
+      const originalPos = state.findIndex((task) => task.id === active.id);
+      const newPos = state.findIndex((task) => task.id === over.id);
+
+      state = arrayMove(state, originalPos, newPos);
+      localStorage.setItem("tasks", JSON.stringify(state));
+      return state;
 
     default:
       return state;

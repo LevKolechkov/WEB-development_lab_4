@@ -33,3 +33,10 @@ export const loadTasks = () => {
     type: a.LOAD_TASKS,
   };
 };
+
+export const moveTask = (event) => {
+  return {
+    type: a.MOVE_TASK,
+    payload: event,
+  };
+};
