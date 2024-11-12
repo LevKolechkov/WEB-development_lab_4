@@ -27,3 +27,9 @@ export const toggleTask = (id) => {
     payload: id,
   };
 };
+
+export const loadTasks = () => {
+  return {
+    type: a.LOAD_TASKS,
+  };
+};

@@ -1,14 +1,20 @@
 import * as a from "./actionTypes";
 
-const initialState = [];
+const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+storedTasks.forEach((task) => (task.isMenuOpened = false));
+const initialState = [...storedTasks];
 
 const taskReducer = (state = initialState, action) => {
   switch (action.type) {
     case a.ADD_TASK:
-      return [...state, action.payload];
+      state = [...state, action.payload];
+      localStorage.setItem("tasks", JSON.stringify(state));
+      return state;
 
     case a.DELETE_TASK:
-      return state.filter((task) => task.id !== action.payload);
+      state = state.filter((task) => task.id !== action.payload);
+      localStorage.setItem("tasks", JSON.stringify(state));
+      return state;
 
     case a.EDIT_TASK:
       return state.map((task) =>
@@ -27,6 +33,11 @@ const taskReducer = (state = initialState, action) => {
           ? { ...task, isMenuOpened: !task.isMenuOpened }
           : { ...task, isMenuOpened: false }
       );
+
+    case a.LOAD_TASKS:
+      const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      storedTasks.forEach((task) => (task.isMenuOpened = false));
+      return storedTasks;
 
     default:
       return state;
