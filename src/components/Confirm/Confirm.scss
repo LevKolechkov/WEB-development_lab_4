@@ -30,6 +30,8 @@
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
+  z-index: 10;
+  pointer-events: auto;
 
   .delete-task {
     align-self: center;
