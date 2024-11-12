@@ -45,14 +45,15 @@ const taskReducer = (state = initialState, action) => {
     case a.MOVE_TASK:
       const { active, over } = action.payload;
 
-      if (active.id === over.id) return;
+      if (active.id === over.id) return state;
 
       const originalPos = state.findIndex((task) => task.id === active.id);
       const newPos = state.findIndex((task) => task.id === over.id);
 
-      state = arrayMove(state, originalPos, newPos);
-      localStorage.setItem("tasks", JSON.stringify(state));
-      return state;
+      const newState = arrayMove([...state], originalPos, newPos);
+
+      localStorage.setItem("tasks", JSON.stringify(newState));
+      return newState;
 
     default:
       return state;
