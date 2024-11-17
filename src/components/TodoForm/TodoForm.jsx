@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { addTask } from "../../redux/actionCreators";
+import { addTask } from "../../redux/tasksSlice";
 import "./TodoForm.scss";
 
 function TodoForm() {

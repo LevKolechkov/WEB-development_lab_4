@@ -7,14 +7,15 @@ import { DndContext, closestCorners } from "@dnd-kit/core";
 import Todo from "./Todo";
 import NoTasks from "../NoTasks/NoTasks";
 import {
+  selectTasks,
   deleteTask,
   toggleTask,
   editTask,
   moveTask,
-} from "../../redux/actionCreators";
+} from "../../redux/tasksSlice";
 
 function TodoList() {
-  const tasks = useSelector((state) => state.tasks);
+  const tasks = useSelector(selectTasks);
   const dispatch = useDispatch();
 
   const handleDeleteTask = (id) => {
@@ -25,8 +26,8 @@ function TodoList() {
     dispatch(toggleTask(id));
   };
 
-  const updateTaskHandler = (id, editedTask) => {
-    dispatch(editTask(id, editedTask));
+  const updateTaskHandler = (id, changedTask) => {
+    dispatch(editTask({ id, changedTask }));
   };
 
   const handleDragEnd = (event) => {

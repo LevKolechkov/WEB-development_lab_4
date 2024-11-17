@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import taskReducer from "./reducer";
+import taskReducer from "./tasksSlice";
 
 const store = configureStore({
   reducer: { tasks: taskReducer },
