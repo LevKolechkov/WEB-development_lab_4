@@ -33,22 +33,20 @@ function TodoForm() {
       <div className="set-task__input">
         <input
           type="text"
-          id="titleInput"
+          className="titleInput"
           placeholder="Title..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <input
           type="text"
-          id="aboutInput"
+          className="aboutInput"
           placeholder="About..."
           value={about}
           onChange={(e) => setAbout(e.target.value)}
         />
       </div>
-      <button type="submit" id="addTask">
-        +
-      </button>
+      <button type="submit">+</button>
     </form>
   );
 }

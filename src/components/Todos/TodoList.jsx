@@ -36,7 +36,7 @@ function TodoList() {
 
   return (
     <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
-      <ul id="taskList">
+      <ul>
         {tasks.length === 0 ? (
           <NoTasks />
         ) : (
