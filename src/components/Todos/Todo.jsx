@@ -64,7 +64,7 @@ function Todo({ task, deleteTask, toggleTask, updateTask }) {
               {...attributes}
               {...listeners}
               ref={setNodeRef}
-            ></div>
+            />
             <h1>{task.title}</h1>
             <h2>{task.about}</h2>
           </div>
